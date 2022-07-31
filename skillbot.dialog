@@ -1,0 +1,71 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "skillbot",
+    "description": "",
+    "id": "A79tBe"
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnConversationUpdateActivity",
+      "$designer": {
+        "id": "OyRnRB",
+        "name": "Greeting (ConversationUpdate activity)"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.Foreach",
+          "$designer": {
+            "name": "Loop: For each item",
+            "description": "",
+            "id": "pYwGET"
+          },
+          "itemsProperty": "turn.Activity.membersAdded",
+          "actions": [
+            {
+              "$kind": "Microsoft.IfCondition",
+              "$designer": {
+                "name": "Branch: If/else",
+                "description": "",
+                "id": "4wZsDu"
+              },
+              "condition": "string(dialog.foreach.value.id) != string(turn.Activity.Recipient.id)",
+              "actions": [
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "name": "Send a response",
+                    "description": "",
+                    "id": "UX6zUG"
+                  },
+                  "activity": "${SendActivity_UX6zUG()}"
+                },
+                {
+                  "$kind": "MultiplyDialog",
+                  "$designer": {
+                    "id": "V26UCZ"
+                  },
+                  "arg1": 15,
+                  "arg2": 12,
+                  "resultProperty": "user.result"
+                },
+                {
+                  "$kind": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "BB6RQf"
+                  },
+                  "activity": "${SendActivity_BB6RQf()}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "generator": "skillbot.lg",
+  "id": "skillbot",
+  "recognizer": "skillbot.lu.qna"
+}
